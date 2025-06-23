@@ -24,7 +24,6 @@
 
         <textarea [(ngModel)]="inputText" (input)="startTest()"
             placeholder="Type here... (Typing speed test starts when you begin typing.)" rows="6" cols="60"></textarea>
-        <input type="text" autocomplete="off" placeholder="Enter text" title="Input field">
 
         <div class="results" *ngIf="started">
             <p><strong>WPM:</strong> {{ wpm }}</p>
