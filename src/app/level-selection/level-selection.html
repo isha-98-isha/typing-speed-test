@@ -1,0 +1,25 @@
+<div class="level-selection-container">
+    <h1 class="title">🎯 Choose Your Typing Level</h1>
+    <p class="subtitle">Select your skill level to begin the test</p>
+
+    <div class="card-container">
+        <a class="level-card beginner" routerLink="/typing-test" (click)="logLevel('Beginner')">
+            <h2>Beginner</h2>
+            <p>Start easy with short words and simple sentences.</p>
+        </a>
+
+        <a class="level-card average" routerLink="/average" (click)="logLevel('Average')">
+            <h2>Average</h2>
+            <p>Medium-length content to challenge your speed.</p>
+        </a>
+
+        <a class="level-card expert" routerLink="/expert" (click)="logLevel('Expert')">
+            <h2>Expert</h2>
+            <p>Test your skills with complex and fast-paced text.</p>
+        </a>
+    </div>
+    <div class="logout-container">
+        <span>{{ userName }}</span>
+        <button (click)="logout()" class="logout-btn">Logout</button>
+    </div>
+</div>

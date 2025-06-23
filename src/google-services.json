@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "679529058202",
+    "project_id": "tstls-27eae",
+    "storage_bucket": "tstls-27eae.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679529058202:android:c225e9fcd9b5cc7f09f423",
+        "android_client_info": {
+          "package_name": "com.isha.Tester"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679529058202-lajsmb2q4sfl1rvhkhe3tcri19rht3vl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCq5Sd3XJG2R4P-woC_GxgkAVSlSb-F4Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679529058202-lajsmb2q4sfl1rvhkhe3tcri19rht3vl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

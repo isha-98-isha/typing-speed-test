@@ -1,0 +1,79 @@
+<!-- signup.html -->
+<div class="signup-container">
+    <div class="signup-card">
+        <div class="signup-form">
+            <h2>Create Account</h2>
+            <p class="subtitle">Join us and start your typing journey</p>
+
+            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" formControlName="name" class="form-control"
+                        [class.is-invalid]="name?.invalid && name?.touched" placeholder="Enter your full name">
+                    <div *ngIf="name?.invalid && name?.touched" class="invalid-feedback">
+                        <small *ngIf="name?.errors?.['required']">Name is required</small>
+                        <small *ngIf="name?.errors?.['minlength']">Name must be at least 2 characters long</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" formControlName="email" class="form-control"
+                        [class.is-invalid]="email?.invalid && email?.touched" placeholder="Enter your email address">
+                    <div *ngIf="email?.invalid && email?.touched" class="invalid-feedback">
+                        <small *ngIf="email?.errors?.['required']">Email is required</small>
+                        <small *ngIf="email?.errors?.['email']">Please enter a valid email address</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" formControlName="password" class="form-control"
+                        [class.is-invalid]="password?.invalid && password?.touched"
+                        placeholder="Create a password (min 6 characters)">
+                    <div *ngIf="password?.invalid && password?.touched" class="invalid-feedback">
+                        <small *ngIf="password?.errors?.['required']">Password is required</small>
+                        <small *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters
+                            long</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control"
+                        [class.is-invalid]="(confirmPassword?.invalid && confirmPassword?.touched) || signupForm.errors?.['passwordMismatch']"
+                        placeholder="Confirm your password">
+                    <div *ngIf="(confirmPassword?.invalid && confirmPassword?.touched) || signupForm.errors?.['passwordMismatch']"
+                        class="invalid-feedback">
+                        <small *ngIf="confirmPassword?.errors?.['required']">Please confirm your password</small>
+                        <small *ngIf="signupForm.errors?.['passwordMismatch']">Passwords do not match</small>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="signupForm.invalid">
+                    Create Account
+                </button>
+            </form>
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+            <!-- Google Signup Button 
+            <div id="g_id_onload"
+                data-client_id="548873595438-lprsco12e3enkbhticc329km6cjv5tps.apps.googleusercontent.com"
+                data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse"
+                data-auto_prompt="false">
+            </div>
+
+            <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline"
+                data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left">
+            </div>
+-->
+            <!-- Login Link -->
+            <div class="login-link">
+                <p>Already have an account? <a routerLink="/login">Sign in here</a></p>
+            </div>
+        </div>
+    </div>
+</div>

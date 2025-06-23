@@ -1,0 +1,36 @@
+<div [ngClass]="mode">
+    <div class="mode-toggle">
+        <button (click)="toggleMode()" aria-label="Toggle light/dark mode" class="bulb-btn">
+            <!-- Light mode -->
+            <span *ngIf="mode === 'light'" class="bulb bulb-on">
+                <svg width="32" height="32" viewBox="0 0 32 32">
+                    <ellipse cx="16" cy="14" rx="10" ry="12" fill="#ffd600" />
+                    <rect x="12" y="24" width="8" height="6" rx="2" fill="#b0b0b0" />
+                </svg>
+            </span>
+            <!-- Dark mode -->
+            <span *ngIf="mode === 'dark'" class="bulb bulb-off">
+                <svg width="32" height="32" viewBox="0 0 32 32">
+                    <ellipse cx="16" cy="14" rx="10" ry="12" fill="#b0b0b0" />
+                    <rect x="12" y="24" width="8" height="6" rx="2" fill="#888" />
+                </svg>
+            </span>
+        </button>
+    </div>
+
+    <div class="container">
+        <h2>hey Beginner, Start Speed test</h2>
+        <p class="paragraph">{{ paragraph }}</p>
+
+        <textarea [(ngModel)]="inputText" (input)="startTest()"
+            placeholder="Type here... (Typing speed test starts when you begin typing.)" rows="6" cols="60"></textarea>
+
+        <div class="results" *ngIf="started">
+            <p><strong>WPM:</strong> {{ wpm }}</p>
+            <p><strong>Accuracy:</strong> {{ accuracy }}%</p>
+            <p><strong>Time Elapsed:</strong> {{ elapsedTime.toFixed(2) }} minutes</p>
+        </div>
+
+        <button (click)="resetTest()">Want to try Again?</button>
+    </div>
+</div>
