@@ -88,30 +88,32 @@ export class LoginComponent implements OnInit {
   }
 
   // Traditional form login
-  onSubmit() {
-    if (this.loginForm.valid) {
-      const formData = this.loginForm.value;
+  onSubmit(): void {
+  if (this.loginForm.valid) {
+    const formData = this.loginForm.value;
 
-      const savedUser = localStorage.getItem('user');
-      if (savedUser) {
-        const user = JSON.parse(savedUser);
+    // Get all registered users
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
 
-        if (user.email === formData.email && user.password === formData.password) {
-          alert('Login successful');
-          // Save login state
-          localStorage.setItem('isLoggedIn', 'true');
-          localStorage.setItem('loginMethod', 'traditional');
-          this.router.navigate(['/level-selection']);
-        } else {
-          alert('Invalid email or password');
-        }
-      } else {
-        alert('No user registered. Please signup first.');
-      }
+    // Find matching user
+    const matchedUser = users.find((user: any) =>
+      user.email === formData.email && user.password === formData.password
+    );
+
+    if (matchedUser) {
+      alert('Login successful');
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('loginMethod', 'traditional');
+      localStorage.setItem('loggedInUser', JSON.stringify(matchedUser));
+      this.router.navigate(['/level-selection']);
     } else {
-      alert('Please fill in all required fields correctly.');
+      alert('Invalid email or password');
     }
+  } else {
+    alert('Please fill in all required fields correctly.');
   }
+}
+
 
   // Google OAuth login
   signInWithGoogle(): void {
@@ -159,41 +161,33 @@ export class LoginComponent implements OnInit {
 
   // Handle forgot password submission
   onForgotPasswordSubmit(): void {
-    if (this.forgotPasswordForm.valid) {
-      const email = this.forgotPasswordForm.value.email;
+  if (this.forgotPasswordForm.valid) {
+    const email = this.forgotPasswordForm.value.email;
 
-      // Check if user exists
-      const savedUser = localStorage.getItem('user');
-      if (savedUser) {
-        const user = JSON.parse(savedUser);
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const userExists = users.find((user: any) => user.email === email);
 
-        if (user.email === email) {
-          // Generate reset token (in real app, this would be done on server)
-          const resetToken = this.generateResetToken();
+    if (userExists) {
+      const resetToken = this.generateResetToken();
 
-          // Store reset token with expiration (24 hours)
-          const resetData = {
-            email: email,
-            token: resetToken,
-            expires: Date.now() + (24 * 60 * 60 * 1000) // 24 hours
-          };
-          localStorage.setItem('passwordReset', JSON.stringify(resetData));
+      const resetData = {
+        email: email,
+        token: resetToken,
+        expires: Date.now() + (24 * 60 * 60 * 1000) // 24 hours
+      };
+      localStorage.setItem('passwordReset', JSON.stringify(resetData));
 
-          // Simulate sending email (in real app, send actual email)
-          this.simulatePasswordResetEmail(email, resetToken);
-
-          alert(`Password reset instructions have been sent to ${email}. Please check your email.`);
-          this.hideForgotPasswordForm();
-        } else {
-          alert('No account found with this email address.');
-        }
-      } else {
-        alert('No account found with this email address.');
-      }
+      this.simulatePasswordResetEmail(email, resetToken);
+      alert(`Password reset instructions have been sent to ${email}. Please check your email.`);
+      this.hideForgotPasswordForm();
     } else {
-      alert('Please enter a valid email address.');
+      alert('No account found with this email address.');
     }
+  } else {
+    alert('Please enter a valid email address.');
   }
+}
+
 
   // Generate a random reset token
   private generateResetToken(): string {
@@ -242,39 +236,34 @@ export class LoginComponent implements OnInit {
 
   // Handle password reset submission
   onResetPasswordSubmit(): void {
-    if (this.resetPasswordForm.valid && this.isTokenValid) {
-      const newPassword = this.resetPasswordForm.value.newPassword;
-      const resetData = JSON.parse(localStorage.getItem('passwordReset') || '{}');
+  if (this.resetPasswordForm.valid && this.isTokenValid) {
+    const newPassword = this.resetPasswordForm.value.newPassword;
+    const resetData = JSON.parse(localStorage.getItem('passwordReset') || '{}');
 
-      // Update user's password
-      const savedUser = localStorage.getItem('user');
-      if (savedUser) {
-        const user = JSON.parse(savedUser);
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const userIndex = users.findIndex((user: any) => user.email === resetData.email);
 
-        if (user.email === resetData.email) {
-          user.password = newPassword;
-          localStorage.setItem('user', JSON.stringify(user));
+    if (userIndex !== -1) {
+      users[userIndex].password = newPassword;
 
-          // Clear reset token
-          localStorage.removeItem('passwordReset');
+      localStorage.setItem('users', JSON.stringify(users));
+      localStorage.removeItem('passwordReset');
 
-          alert('Password has been successfully reset. You can now login with your new password.');
-          this.resetPasswordForm.reset();
-          this.showResetPassword = false;
-          this.isTokenValid = false;
-          this.resetToken = '';
-        } else {
-          alert('Error: User account not found.');
-        }
-      } else {
-        alert('Error: User account not found.');
-      }
-    } else if (!this.isTokenValid) {
-      alert('Invalid reset token.');
+      alert('Password has been successfully reset. You can now login with your new password.');
+      this.resetPasswordForm.reset();
+      this.showResetPassword = false;
+      this.isTokenValid = false;
+      this.resetToken = '';
     } else {
-      alert('Please fill in all fields correctly.');
+      alert('Error: User account not found.');
     }
+  } else if (!this.isTokenValid) {
+    alert('Invalid reset token.');
+  } else {
+    alert('Please fill in all fields correctly.');
   }
+}
+
 
   // Cancel password reset
   cancelPasswordReset(): void {

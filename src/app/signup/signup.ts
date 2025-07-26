@@ -56,36 +56,40 @@ export class SignupComponent implements OnInit {
   }
 
   // Traditional form signup
-  onSubmit(): void {
-    if (this.signupForm.valid) {
-      const formData = this.signupForm.value;
+onSubmit(): void {
+  if (this.signupForm.valid) {
+    const formData = this.signupForm.value;
 
-      // Check if user already exists
-      const existingUser = localStorage.getItem('user');
-      if (existingUser) {
-        const user = JSON.parse(existingUser);
-        if (user.email === formData.email) {
-          alert('User with this email already exists. Please login instead.');
-          return;
-        }
-      }
+    // Get existing users from localStorage or initialize empty array
+    const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
 
-      // Save user data
-      const userData = {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-        registrationDate: new Date().toISOString()
-      };
+    // Check if the email is already registered
+    const userExists = existingUsers.some((user: any) => user.email === formData.email);
 
-      localStorage.setItem('user', JSON.stringify(userData));
-
-      alert(`Welcome ${formData.name}! Account created successfully. Please login to continue.`);
-      this.router.navigate(['/login']);
-    } else {
-      this.markFormGroupTouched();
+    if (userExists) {
+      alert('User with this email already exists. Please login instead.');
+      return;
     }
+
+    // New user object
+    const newUser = {
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      registrationDate: new Date().toISOString()
+    };
+
+    // Push new user and save updated array
+    existingUsers.push(newUser);
+    localStorage.setItem('users', JSON.stringify(existingUsers));
+
+    alert(`Welcome ${formData.name}! Account created successfully. Please login to continue.`);
+    this.router.navigate(['/login']);
+  } else {
+    this.markFormGroupTouched();
   }
+}
+
 
   // Google OAuth signup
   signUpWithGoogle(): void {
