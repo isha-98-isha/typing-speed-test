@@ -91,28 +91,31 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
   if (this.loginForm.valid) {
     const formData = this.loginForm.value;
+    
+    // Fetch all users
+    const usersJSON = localStorage.getItem('users');
+    const users = usersJSON ? JSON.parse(usersJSON) : [];
 
-    // Get all registered users
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-
-    // Find matching user
-    const matchedUser = users.find((user: any) =>
+    // Check if user exists
+    const matchedUser = users.find((user: any) => 
       user.email === formData.email && user.password === formData.password
     );
 
     if (matchedUser) {
-      alert('Login successful');
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('loginMethod', 'traditional');
+      // Store login session info
       localStorage.setItem('loggedInUser', JSON.stringify(matchedUser));
+      alert(`Welcome back, ${matchedUser.name}!`);
       this.router.navigate(['/level-selection']);
     } else {
-      alert('Invalid email or password');
+      alert('Invalid email or password.');
     }
-  } else {
-    alert('Please fill in all required fields correctly.');
-  }
+  } Object.keys(this.loginForm.controls).forEach(key => {
+  const control = this.loginForm.get(key);
+  control?.markAsTouched();
+});
+
 }
+
 
 
   // Google OAuth login
