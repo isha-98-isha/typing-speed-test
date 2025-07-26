@@ -138,3 +138,12 @@
 .logout-btn:hover {
     background-color: #e60000;
 }
+/* styles.css */
+.fade-in {
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

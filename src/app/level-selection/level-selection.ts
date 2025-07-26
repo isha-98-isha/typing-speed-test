@@ -10,47 +10,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./level-selection.css']
 })
 export class LevelSelectionComponent {
-  logLevel(level: string) {
-    console.log('Navigating to level:', level);
-  }
   userName: string = '';
 
   constructor(private router: Router) { }
 
   ngOnInit() {
-    {
-      this.userName = localStorage.getItem('userName') || '';
-    }
     this.userName = localStorage.getItem('userName') || '';
-    history.pushState(null, '', location.href);
-    window.onpopstate = () => {
-      window.close(); // Close the tab when back is pressed
-      history.pushState(null, '', location.href); // Push again just in case
-    };
-    window.onpopstate = () => {
-      history.pushState(null, '', location.href);
-      alert("Please use the Logout button to exit.");
-    };
 
+    // Prevent back navigation by pushing the same history
+    history.pushState(null, '', location.href);
   }
 
   @HostListener('window:popstate', ['$event'])
   onPopState(event: PopStateEvent) {
-    // If user presses back, close the tab/window
-    window.close();
+    // Show alert only when user tries to go back from this page
+    history.pushState(null, '', location.href);
+    alert("Please use the Logout button to exit.");
   }
 
+  logLevel(level: string) {
+    console.log('Navigating to level:', level);
+  }
 
   logout() {
-    // Clear user info
     localStorage.removeItem('userName');
-    localStorage.removeItem('token'); // if using JWT
-    // Clear other user-specific data
+    localStorage.removeItem('token');
     ['Beginner', 'Average', 'Expert'].forEach(level =>
       localStorage.removeItem(`${level}Performance`)
     );
 
-    // Redirect to login
     this.router.navigate(['/login']);
   }
 }
