@@ -67,7 +67,14 @@ export class ExpertComponent {
       this.badges.push('50wpm');
     }
   }
-
+ resetValues() {
+  this.inputText = '';
+  this.wpm = 0;
+  this.accuracy = 0;
+  this.elapsedTime = 0;
+  this.started = false;
+  this.startTime = 0;
+}
   resetTest() {
     this.inputText = '';
     this.started = false;
