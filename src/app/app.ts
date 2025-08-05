@@ -1,16 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+// src/app/app.ts
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.css']
+  standalone: true,
+  imports: [RouterOutlet],
+  template: `<router-outlet />`
 })
-export class App implements OnInit {
-  showSplash = true;
-
-  ngOnInit() {
-    setTimeout(() => {
-      this.showSplash = false;
-    }, 3000); // Splash lasts 3 seconds
-  }
-}
+export class App { }
