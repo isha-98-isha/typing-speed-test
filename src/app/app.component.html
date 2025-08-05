@@ -1,9 +1,7 @@
 <!-- Splash screen -->
 <div *ngIf="showSplash" class="splash-screen">
-  <img src="assets/SpeedRush-logo.png" alt="SpeedRush Logo" class="splash-logo">
+  <img src="/assets/SpeedRush-logo.png" alt="Logo" class="logo" />
 </div>
 
-<!-- Main App Content -->
-<div *ngIf="!showSplash">
-  <router-outlet></router-outlet>
-</div>
+<!-- Actual app content -->
+<router-outlet *ngIf="!showSplash"></router-outlet>
