@@ -1,12 +1,1 @@
 <router-outlet></router-outlet>
-<!-- Splash Screen -->
-<div *ngIf="showSplash" class="splash-screen">
-  <img src="public/assets/SpeedRush logo.png" alt="App Logo" class="splash-logo" />
-</div>
-
-<!-- Main App -->
-<div *ngIf="!showSplash">
-  <!-- Your original app content goes here -->
-  <app-header></app-header>
-  <router-outlet></router-outlet>
-</div>
