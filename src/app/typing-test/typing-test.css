@@ -173,6 +173,35 @@ body::before {
     background-blend-mode: screen;
     opacity: 0.5;
 }
+.secondary-btn {
+    margin-top: 10px;
+    padding: 10px 24px;
+    font-size: 16px;
+    border: none;
+    background: transparent;
+    border: 2px solid var(--secondary-pink);
+    color: var(--hot-pink);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.2s;
+}
+
+.secondary-btn:hover {
+    background: var(--secondary-pink);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.dark .secondary-btn {
+    border-color: #6ec6ca;
+    color: #6ec6ca;
+}
+
+.dark .secondary-btn:hover {
+    background: #6ec6ca;
+    color: #232526;
+}
+
 
 @keyframes backgroundMove {
 

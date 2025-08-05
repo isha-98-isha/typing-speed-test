@@ -74,6 +74,15 @@ export class TypingTestComponent {
       this.badges.push('50wpm');
     }
   }
+  resetValues() {
+  this.inputText = '';
+  this.started = false;
+  this.wpm = 0;
+  this.accuracy = 0;
+  this.elapsedTime = 0;
+  this.startTime = 0;
+}
+
 
   resetTest() {
     this.inputText = '';

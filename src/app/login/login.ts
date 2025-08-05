@@ -115,9 +115,6 @@ export class LoginComponent implements OnInit {
 });
 
 }
-
-
-
   // Google OAuth login
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((user: SocialUser) => {
