@@ -1,7 +1,10 @@
 <!-- Splash screen -->
-<div *ngIf="showSplash" class="splash-screen">
-  <img src="/assets/SpeedRush-logo.png" alt="Logo" class="logo" />
+<div class="splash-container">
+  <img src="assets/SpeedRush-logo.png" alt="Logo" class="splash-logo" />
+  <h1 class="splash-title">SPEEDRUSH</h1>
+  <p class="splash-tagline">Test your typing speed with Speedrush</p>
 </div>
+
 
 <!-- Actual app content -->
 <router-outlet *ngIf="!showSplash"></router-outlet>
