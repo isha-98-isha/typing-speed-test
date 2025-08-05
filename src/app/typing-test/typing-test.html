@@ -30,10 +30,8 @@
             <p><strong>Accuracy:</strong> {{ accuracy }}%</p>
             <p><strong>Time Elapsed:</strong> {{ elapsedTime.toFixed(2) }} minutes</p>
         </div>
-        <!-- New Reset Button -->
+        <button (click)="resetTest()">Want to try Again?</button>
         <button class="secondary-btn" (click)="resetValues()">Reset</button>
 
-
-        <button (click)="resetTest()">Want to try Again?</button>
     </div>
 </div>

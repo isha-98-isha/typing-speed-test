@@ -76,10 +76,10 @@ export class TypingTestComponent {
   }
   resetValues() {
   this.inputText = '';
-  this.started = false;
   this.wpm = 0;
   this.accuracy = 0;
   this.elapsedTime = 0;
+  this.started = false;
   this.startTime = 0;
 }
 
