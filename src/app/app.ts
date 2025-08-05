@@ -8,4 +8,12 @@ import { RouterOutlet } from '@angular/router';
   imports: [RouterOutlet],
   template: `<router-outlet />`
 })
-export class App { }
+export class App {
+  showSplash = true;
+  ngOnInit() {
+    // Hide splash screen after 3 seconds
+    setTimeout(() => {
+      this.showSplash = false;
+    }, 3000); // adjust duration here
+  }
+ }
