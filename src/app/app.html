@@ -1,1 +1,10 @@
-<router-outlet></router-outlet>
+<!-- Splash Screen -->
+<div *ngIf="showSplash" class="splash-screen">
+  <img src="assets/logo.png" alt="App Logo" class="splash-logo" />
+</div>
+
+<!-- Main Application -->
+<div *ngIf="!showSplash">
+  <!-- Put your main app component content here -->
+  <router-outlet></router-outlet>
+</div>
